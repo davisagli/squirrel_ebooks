@@ -677,5 +677,5 @@ hymns = [
 
 module.exports = (robot) ->
   robot.hear /.*HWB\s*#?(\d+).*/i, (msg) ->
-    hymn = parseInt(msg.match[1]);
+    hymn = parseInt(msg.match[1]) - 1;
     msg.send "HWB #" + hymn + ': ' + hymns[hymn]
