@@ -15,5 +15,10 @@
 
 module.exports = (robot) ->
   robot.hear /.*(house\s*|temp\s+).*/i, (msg) ->
-    callback = (response) -> msg.send "It's currently " + response
-    $.get 'http://up.jamesnweber.com/_sandbox/stat/current?q=inside', callback, 'json'
+    robot.http("http://up.jamesnweber.com/_sandbox/stat/current?q=inside")
+    .get() (err, res, body) ->
+      if err
+        msg.send "Encountered an error :( #{err}"
+        return
+      else
+      	msg.send "The house is #{body}"
